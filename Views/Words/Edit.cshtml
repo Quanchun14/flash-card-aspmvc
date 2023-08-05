@@ -1,0 +1,45 @@
+@model flash_card.Models.Word
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Word</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Title" />
+            <input type="hidden" asp-for="CreateDate" />
+            <input type="hidden" asp-for="LearnTime" />
+            <div class="form-group">
+                <h3> @Model.Title</h3>
+            </div>
+            <div class="form-group">
+                <label asp-for="Defination" class="control-label"></label>
+                <input asp-for="Defination" class="form-control" />
+                <span asp-validation-for="Defination" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Example" class="control-label"></label>
+                <textarea asp-for="Example" class="form-control" ></textarea>
+                <span asp-validation-for="Example" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="pt-3">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
