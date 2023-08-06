@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Bogus;
+using flash_card.Models;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -26,6 +28,32 @@ namespace flash_card.Migrations
                 {
                     table.PrimaryKey("PK_Word", x => x.Id);
                 });
+
+            //Insert data
+            Randomizer.Seed = new Random(8675309);
+            var fakeWord = new Faker<Word>();
+            fakeWord.RuleFor(w=>w.Title, f=>f.Random.Word());
+            fakeWord.RuleFor(w=>w.Example, f=>f.Lorem.Sentence(10));
+            fakeWord.RuleFor(w=>w.Defination, f=>f.Lorem.Sentence(10));
+            fakeWord.RuleFor(w=>w.CreateDate, f => f.Date.Between(new DateTime(2023,2,8),new DateTime(2023,4,8)).ToString());
+            fakeWord.RuleFor(w=>w.LearnTime, f=>f.Random.Number(500));
+
+            for(int i = 0; i < 150; i++){
+
+
+            Word word = fakeWord.Generate();
+            migrationBuilder.InsertData(
+                table: "Word",
+                columns: new[] {"title", "example", "defination", "createdate", "learntimes"},
+                values: new object[] {
+                    word.Title,
+                    word.Example,
+                    word.Defination,
+                    word.CreateDate,
+                    word.LearnTime,
+                }
+            );
+            }
         }
 
         /// <inheritdoc />

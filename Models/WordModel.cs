@@ -9,17 +9,17 @@ namespace flash_card.Models
   {
     [Key]
     public int Id { get; set; }
-    [Required]
-    [StringLength(50)]
+    [Required(ErrorMessage = "{0} must be filled")]
+    [StringLength(50, MinimumLength = 1,ErrorMessage = "{0} must from {2} to {1} character")]
     [Column("title",TypeName = "nvarchar(50)")]
     public string? Title { get; set; }
     
-    [StringLength(250)]
+    [StringLength(500, ErrorMessage ="{0} must less than 250 characters")]
     [Column("example",TypeName = "nvarchar(250)")]
     public string? Example { get; set; }
     
-    [Required]
-    [StringLength(500)]
+    [Required(ErrorMessage = "{0} must be filled")]
+    [StringLength(250, MinimumLength = 1,ErrorMessage = "{0} must from {2} to {1} characters")]
     [Column("defination",TypeName = "nvarchar(500)")]
     public string? Defination { get; set; }
     

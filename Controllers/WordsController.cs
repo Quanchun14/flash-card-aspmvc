@@ -55,7 +55,7 @@ namespace flash_card.Controllers
         {
             if (ModelState.IsValid)
             {
-                word.CreateDate = DateTime.Now.Date.ToString();
+                word.CreateDate = DateTime.Now.ToString();
                 word.LearnTime = 0;
                 _context.Add(word);
                 await _context.SaveChangesAsync();
