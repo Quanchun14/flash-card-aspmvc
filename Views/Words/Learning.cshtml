@@ -1,0 +1,68 @@
+@model IEnumerable<flash_card.Models.Word>
+
+
+@{
+  ViewData["Title"] = "Learning";
+}
+
+<div class="learning_container">
+  <div class="slider">
+    @foreach(var item in Model)
+    {
+      <div class="slide">
+        <div class="card learning">
+          <div class="flip-card front-card">
+            <h2>@item.Title</h2>
+          </div>
+          <div class="flip-card back-card">
+            <p>@item.Defination</p>
+            <p>@item.Example</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="controllers">
+    <button class="btn-slider btn-slider--prev">prev</button>
+    <button class="btn-slider btn-slider--next">next</button>
+  </div>
+</div>
+
+@section Scripts{
+  <script type="text/javascript">
+    const learningCards =  document.querySelectorAll(".learning");
+    learningCards.forEach(item => item.onclick = function (e) {
+          const cardEle = e.currentTarget;
+              cardEle.classList.toggle('flip');
+          console.log(cardEle);
+          });
+
+    const slides = document.querySelectorAll(".slide");
+    const btnPrev = document.querySelector(".btn-slider--prev");
+    const btnNext = document.querySelector(".btn-slider--next");
+
+    let currSlide = 0;
+    const slideLen = slides.length;
+
+    const gotoSlide = (slide)=>{
+      slides.forEach((s,i)=>s.style.transform = `translateX(${100*(i-slide)}%)`)
+    };
+
+    const nextSlide = () => {
+      if(currSlide>=slideLen-1)currSlide = 0;
+      else currSlide++;
+      gotoSlide(currSlide);
+    }
+    const prevSlide = () => {
+      if(currSlide<=0)currSlide = slideLen-1;
+      else currSlide--;
+      gotoSlide(currSlide);
+    }
+
+    btnPrev.addEventListener("click", prevSlide);
+    btnNext.addEventListener("click", nextSlide);
+
+    gotoSlide(0);
+  </script>
+} 

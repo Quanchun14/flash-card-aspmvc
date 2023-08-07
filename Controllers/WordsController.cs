@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using flash_card.Data;
 using flash_card.Models;
 
+
 namespace flash_card.Controllers
 {
     public class WordsController : Controller
@@ -14,12 +15,27 @@ namespace flash_card.Controllers
             _context = context;
         }
 
+
         // GET: Words
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString = "", int sortOrder = 0)
         {
-              return _context.Word != null ? 
-                          View(await _context.Word.ToListAsync()) :
-                          Problem("Entity set 'FlashCardContext.Word'  is null.");
+            ViewData["sortOder"]= sortOrder;
+            ViewData["searchString"]=searchString;
+              if(_context.Word==null)
+                       return Problem("Entity set 'FlashCardContext.Word'  is null.");
+
+            var wordsList = _context.Word;
+            var sortedList = wordsList.OrderByDescending(word => word.Id);
+             if(sortOrder==1)sortedList = wordsList.OrderBy(word =>  word.Title);
+             if(sortOrder==2)sortedList = wordsList.OrderBy(word =>  word.LearnTime);
+        
+            var searchWordsList = await sortedList.Where(word=> word.Title.Contains(searchString)).ToListAsync();
+            return View(searchWordsList);
+        }
+
+        public async Task<IActionResult> Learning(){
+            var wordsList = await _context.Word.ToListAsync();
+            return View(wordsList);
         }
 
         // GET: Words/Details/5
@@ -55,13 +71,13 @@ namespace flash_card.Controllers
         {
             if (ModelState.IsValid)
             {
-                word.CreateDate = DateTime.Now.Date.ToString();
+                word.CreateDate = DateTime.Now.ToString();
                 word.LearnTime = 0;
                 _context.Add(word);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(word);
+            return View();
         }
 
         // GET: Words/Edit/5

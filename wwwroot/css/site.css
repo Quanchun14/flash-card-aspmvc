@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -19,4 +23,96 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.card {
+  border-radius: 14px;
+  padding: 1.2rem;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  transition: all ease 0.3s;
+}
+
+/* Learning PAGE */
+
+.learning_container {
+  margin: 0 auto;
+  width: 100%;
+  height: 80vh;
+  position: relative;
+}
+
+.learning {
+  position: relative;
+  width: 100%;
+  height: 65vh;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.4rem;
+  transform-style: preserve-3d;
+  transform: perspective(1500px) rotateX(var(--rotate-x, 0));
+}
+
+.flip {
+  --rotate-x: 180deg;
+}
+
+.learning h2 {
+  font-size: 6.4rem;
+  text-align: center;
+}
+
+.learning p {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 3.2rem;
+}
+
+.flip-card {
+  position: absolute;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  padding: 2.4rem;
+}
+
+.back-card {
+  transform: rotateX(180deg);
+}
+
+/* SLIDER */
+
+.slider {
+  height: 100%;
+  position: relative;
+
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1s;
+  padding: 0 2.4rem;
+}
+
+.btn-slider {
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+}
+
+.btn-slider--prev {
+  left: 6%;
+}
+
+.btn-slider--next {
+  right: 6%;
 }
