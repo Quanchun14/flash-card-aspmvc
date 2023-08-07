@@ -3,9 +3,35 @@
 
 @{
     ViewData["Title"] = "Index";
+    var setSearchString = ViewData["searchString"];
+    var setSortOrder = ViewData["sortOder"];
+    string[] optionName = { "Title", "Learn Time", "Newest" };
 }
 
 <h1>Index</h1>
+
+<form method="get">
+    <input class="form-control" value="@setSearchString" name="searchString"/>
+
+    <select class="form-control" name="sortOrder">
+        @for (int i = 0; i < 3; i++)
+        {
+            if (i == Convert.ToInt32(setSortOrder))
+            {
+
+                        <option selected value="@i">@optionName[i]</option>
+            }
+
+            else
+            {
+
+                        <option value="@i">@optionName[i]</option>
+            }
+
+        }
+    </select>
+    <button class="btn btn-danger" type="submit">Search</button>
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -34,31 +60,31 @@
             string date = item.CreateDate == null ? "" : item.CreateDate;
             DateTime convert = DateTime.Parse(date).Date;
             var dateOnly = DateOnly.FromDateTime(convert);
-                                    <tr>
-                                        <td>
+                                                                                                                                                                                                                                                            <tr>
+                                                                                                                                                                                                                                                                <td>
                     @Html.DisplayFor(modelItem => item.Title)
-                                        </td>
-                                        <td>
+                                                                                                                                                                                                                                                                </td>
+                                                                                                                                                                                                                                                                <td>
                     @Html.DisplayFor(modelItem => item.Defination)
-                                        </td>
-                                        <td>
+                                                                                                                                                                                                                                                                </td>
+                                                                                                                                                                                                                                                                <td>
                     @Html.DisplayFor(modelItem => dateOnly)
-                                        </td>
-                                        <td>
+                                                                                                                                                                                                                                                                </td>
+                                                                                                                                                                                                                                                                <td>
                     @Html.DisplayFor(modelItem => item.LearnTime)
-                                        </td>
-                                        <td>
-                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                        </td>
-                                    </tr>
+                                                                                                                                                                                                                                                                </td>
+                                                                                                                                                                                                                                                                <td>
+                                                                                                                                                                                                                                                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                                                                                                                                                                                                                                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                                                                                                                                                                                                                                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                                                                                                                                                                                                                                                </td>
+                                                                                                                                                                                                                                                            </tr>
         }
     </tbody>
     </table>
 @if (Model.Count() == 0)
 {
-                <div class="container text-center">
-                    <h2>No Words Found.</h2>
-                </div v>
+                                                                                                                                                                                                                                        <div class="container text-center">
+                                                                                                                                                                                                                                            <h2>No Words Found.</h2>
+                                                                                                                                                                                                                                        </div v>
 }
