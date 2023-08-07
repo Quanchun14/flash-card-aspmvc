@@ -33,6 +33,11 @@ namespace flash_card.Controllers
             return View(searchWordsList);
         }
 
+        public async Task<IActionResult> Learning(){
+            var wordsList = await _context.Word.ToListAsync();
+            return View(wordsList);
+        }
+
         // GET: Words/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -72,7 +77,7 @@ namespace flash_card.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(word);
+            return View();
         }
 
         // GET: Words/Edit/5

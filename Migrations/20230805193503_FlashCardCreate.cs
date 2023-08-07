@@ -38,7 +38,7 @@ namespace flash_card.Migrations
             fakeWord.RuleFor(w=>w.CreateDate, f => f.Date.Between(new DateTime(2023,2,8),new DateTime(2023,4,8)).ToString());
             fakeWord.RuleFor(w=>w.LearnTime, f=>f.Random.Number(500));
 
-            for(int i = 0; i < 150; i++){
+            for(int i = 0; i < 50; i++){
 
 
             Word word = fakeWord.Generate();
